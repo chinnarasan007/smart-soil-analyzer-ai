@@ -1,0 +1,10 @@
+flask
+tensorflow-cpu
+numpy
+opencv-python-headless
+requests
+geopy
+gunicorn
+scikit-learn
+matplotlib
+pillow

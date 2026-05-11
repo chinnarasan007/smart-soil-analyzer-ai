@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Smart Soil Analyzer</title>
+
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #56ab2f, #a8e063);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #56ab2f;
+            box-shadow: 0 0 5px rgba(86, 171, 47, 0.3);
+        }
+
+        input[type="file"] {
+            margin: 10px 0 15px 0;
+            padding: 10px;
+            border: 1px dashed #56ab2f;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* NEW: Preview Image */
+        .preview {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .preview img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background: #56ab2f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #3d8b1f;
+            transform: translateY(-2px);
+        }
+
+        /* NEW: Loading */
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="icon">🌱</div>
+    <h2>Smart Soil Analyzer AI</h2>
+    <div class="subtitle">Upload soil image & get instant AI analysis</div>
+
+    <form action="/" method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+        
+        <div class="input-group">
+            <label for="city">📍 Enter Your City:</label>
+            <input type="text" id="city" name="city" placeholder="e.g. Chennai, Mumbai, Punjab" required>
+        </div>
+
+        <div class="input-group">
+            <label for="image">📸 Upload Soil Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required onchange="previewImage(event)">
+        </div>
+
+        <!-- NEW: Image Preview -->
+        <div class="preview" id="preview">
+            <img id="preview-img">
+        </div>
+
+        <button type="submit">🔍 Analyze Soil Now</button>
+
+        <!-- NEW: Loading -->
+        <div class="loading" id="loading">⏳ Analyzing... Please wait</div>
+    </form>
+
+    <div class="footer">
+        <strong>AWS Cloud Deployment</strong><br>
+        AI-powered soil classification & crop recommendation
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const img = document.getElementById('preview-img');
+        img.src = URL.createObjectURL(event.target.files[0]);
+        preview.style.display = 'block';
+    }
+
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

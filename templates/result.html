@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Analysis Result</title>
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #11998e, #38ef7d); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0px 15px 40px rgba(0,0,0,0.2); width: 100%; max-width: 500px; text-align: center; }
+        h2 { margin-bottom: 20px; color: #2c3e50; }
+        .preview-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #f8f9fa; }
+        .card { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 10px; text-align: left; overflow: hidden; }
+        .label { font-weight: 600; color: #34495e; }
+        .value { float: right; color: #2c3e50; font-weight: 500; }
+        .tag { display: inline-block; background: #56ab2f; color: white; padding: 6px 12px; border-radius: 20px; margin: 5px 5px 0 0; font-size: 14px; }
+        .btn { margin-top: 20px; background: #11998e; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn:hover { background: #0b7d6e; transform: translateY(-2px); }
+        .footer { margin-top: 15px; font-size: 12px; color: #7f8c8d; }
+
+        .alert {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #d32f2f;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        @media (max-width: 400px) {
+            .value { float: none; display: block; margin-top: 5px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🌱 Soil Analysis Result</h2>
+
+    {% if img_path %}
+    <img src="{{ url_for('static', filename=img_path) }}" alt="Analyzed Soil" class="preview-img">
+    {% endif %}
+
+    {% if soil == "Unknown Image Detected" %}
+        <div class="alert">
+            <strong>⚠️ Invalid Image</strong><br>
+            Please upload a clear soil image (top view, no objects like trees, stones, etc.)
+        </div>
+
+        <div class="card">
+            <span class="label">📍 Location:</span>
+            <span class="value">{{ city }}, India</span>
+        </div>
+
+    {% else %}
+
+        <div class="card">
+            <span class="label">📍 Location:</span>
+            <span class="value">{{ city }}, {{ region }}</span>
+        </div>
+
+        <div class="card">
+            <span class="label">🌦️ Weather:</span>
+            <span class="value">{{ weather }}</span>
+        </div>
+
+        <div class="card">
+            <span class="label">🌡️ Temperature:</span>
+            <span class="value">{{ temp }} °C</span>
+        </div>
+
+        <div class="card">
+            <span class="label">💧 Humidity:</span>
+            <span class="value">{{ humidity }} %</span>
+        </div>
+
+        <!-- NEW: Season -->
+        {% if season %}
+        <div class="card">
+            <span class="label">🌾 Season:</span>
+            <span class="value">{{ season }}</span>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <span class="label">🌱 Soil Type:</span>
+            <span class="value" style="color: #27ae60; font-weight: bold;">{{ soil }}</span>
+        </div>
+
+        <!-- NEW: Confidence -->
+        {% if confidence %}
+        <div class="card">
+            <span class="label">🤖 Confidence:</span>
+            <span class="value">{{ confidence }} %</span>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <span class="label">📊 Quality:</span>
+            <span class="value">{{ quality }}</span>
+        </div>
+
+        <div class="card">
+            <span class="label">🌾 Recommended Crops:</span><br>
+            <div style="margin-top: 10px;">
+                {% for crop in crops %}
+                    <span class="tag">{{ crop }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="label">🧪 Fertilizer:</span>
+            <span class="value">{{ fertilizer }}</span>
+        </div>
+
+    {% endif %}
+
+    <form action="/" method="GET">
+        <button type="submit" class="btn">🔄 Try Another Image</button>
+    </form>
+
+    <div class="footer">
+        Powered by AI | Smart Agriculture System
+    </div>
+</div>
+
+</body>
+</html>
