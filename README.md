@@ -161,7 +161,7 @@ Supported Seasons:
 ## Step 1 — Clone Repository
 
 ```bash
-git clone https://github.com/chinnarasan007/smart-soil-analyzer-ai
+https://github.com/chinnarasan007/smart-soil-analyzer-ai
 ```
 
 ---
